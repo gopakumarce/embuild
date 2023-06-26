@@ -140,7 +140,8 @@ impl EspIdf {
     pub fn try_from_env() -> Result<EspIdf, FromEnvError> {
         // detect repo from $IDF_PATH
         let idf_path = env::var_os(IDF_PATH_VAR).ok_or_else(|| {
-            FromEnvError::NoRepo(anyhow!("environment variable `{IDF_PATH_VAR}` not found"))
+            eprintln!("GOPA idf path var not found {:#?}", IDF_PATH_VAR);
+            FromEnvError::NoRepo(anyhow!("environment variable GOPA `{IDF_PATH_VAR}` not found"))
         })?;
         let repo = git::Repository::open(idf_path).map_err(FromEnvError::NoRepo)?;
 
