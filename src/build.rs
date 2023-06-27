@@ -345,10 +345,12 @@ impl CfgArgs {
     /// dependency's `links` property value, which is specified in its package manifest
     /// (`Cargo.toml`).
     pub fn try_from_env(lib_name: impl Display) -> Result<Self> {
+        eprintln!("GOPA search {:#?}", format!("DEP_{lib_name}_{CFG_ARGS_VAR}"));
         let args = env::var(format!("DEP_{lib_name}_{CFG_ARGS_VAR}"))?
             .split(':') // TODO: Un-escape
             .map(Into::into)
             .collect();
+        eprintln!("GOPA found {:#?}", args);
 
         Ok(Self { args })
     }
@@ -398,6 +400,9 @@ impl CfgArgs {
     /// dependency's `links` property value, which is specified in its package manifest
     /// (`Cargo.toml`).
     pub fn output_propagated(lib_name: impl Display) -> Result<()> {
+        for (key, value) in env::vars() {
+            eprintln!("GOPA {key}: {value}");
+        }
         Self::try_from_env(lib_name).map(|args| args.output())
     }
 }
