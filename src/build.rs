@@ -351,6 +351,7 @@ impl CfgArgs {
             .map(Into::into)
             .collect();
         eprintln!("GOPA found {:#?}", args);
+        panic!("Just quitting for fun");
 
         Ok(Self { args })
     }
