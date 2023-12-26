@@ -20,7 +20,7 @@ rustc-args = ["--cfg",  "docsrs"]
 rustdoc-args = ["--cfg", "docsrs"]
 
 [features]
-default = []
+default = ["espidf"]
 
 # Platformio support
 pio = ["ureq", "bindgen", "tempfile", "which", "manifest", "serde", "serde_json"]
